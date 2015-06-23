@@ -1,0 +1,98 @@
+---
+title       : Developing Data Products
+subtitle    : JOHNS HOPKINGS
+author      : pierre ATTEY
+job         : STUDENT
+widgets     : [bootstrap, quiz, shiny, interactive]
+mode        : selfcontained
+hitheme     : tomorrow
+assets      : {js: 'test.js'}
+ext_widgets: {rCharts: [libraries/nvd3]}
+runtime     : shiny
+output      : html_Document 
+--- &radio 
+
+## Interactive Quiz
+
+give the three positive numbers that give the same result when you multiply them and when you add them together?
+
+1. _1,2,3_
+2. 3,2,6
+3. 2,5,1
+4. 3,1,7
+
+*** .hint
+
+This is a hint
+
+*** .explanation
+
+This is an explanation
+
+---
+
+## Interactive Chart
+
+```{r echo = F, results = 'asis'}
+require(rCharts)
+haireye <- as.data.frame(HairEyeColor)
+n1 <- nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+    data = subset(haireye, Sex == "Male")
+)
+n1$print('chart1')
+```
+
+--- &interactive
+
+## Interactive Console
+
+```{r opts.label = 'interactive', results = 'asis'}
+require(googleVis)
+M1 <- gvisMotionChart(Fruits, idvar = 'Fruit', timevar = 'Year')
+print(M1, tag = 'chart')
+```
+
+---
+
+## Interactive Chart with Shiny Controls
+
+```{r opts.label = 'shiny'}
+slidifyUI(
+  sidebarPanel(
+    selectInput('sex', 'Choose Sex', c('Male', 'Female')),
+    selectInput('type', 'Choose Type',
+      c('multiBarChart', 'multiBarHorizontalChart')
+    )
+  ),
+  mainPanel(
+    tags$div(id = 'nvd3plot', class='shiny-html-output nvd3 rChart')
+  )
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
